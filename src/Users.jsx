@@ -1,7 +1,8 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 
 const Users = ({ userPromise }) => {
-    const users = use(userPromise)
+    const loadedUsers = use(userPromise)
+    const [users, setUsers] = useState(loadedUsers)
     console.log(users);
 
     const handleForm = (e) => {
@@ -22,6 +23,9 @@ const Users = ({ userPromise }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                const newUsers = [...users, data];
+                setUsers(newUsers);
+                e.target.reset()
             })
     }
     return (
